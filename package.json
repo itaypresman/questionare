@@ -1,0 +1,17 @@
+{
+  "name": "questionare-be",
+  "version": "1.0.0",
+  "main": "dist/server.js",
+  "scripts": {
+    "start": "node ./api/index.js",
+    "migration": "npx sequelize-cli db:migrate",
+    "seed": "npx sequelize-cli db:seed:all"
+  },
+  "workspaces": [
+    "api",
+    "lib/*"
+  ],
+  "dependencies": {
+    "path": "^0.12.7"
+  }
+}

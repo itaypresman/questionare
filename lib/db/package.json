@@ -1,0 +1,10 @@
+{
+  "name": "@questionare-be/db",
+  "version": "1.0.0",
+  "dependencies": {
+    "mysql2": "^3.2.4",
+    "process": "^0.11.10",
+    "sequelize": "^6.31.1",
+    "sequelize-cli": "^6.6.0"
+  }
+}
