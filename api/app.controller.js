@@ -1,5 +1,6 @@
 const AppService = require('./app.service');
 
+
 const getQuestions = async (req, res, next) => {
     try {
         const questions = await AppService.questionList();
@@ -11,7 +12,9 @@ const getQuestions = async (req, res, next) => {
 
 const saveAnswers = async (req, res, next) => {
     try {
-        res.send('/answers/save');
+        const {userId, answers} = req.body;
+        await AppService.saveAnswers(userId, answers);
+        res.send({status: true});
     } catch (e) {
         next(e);
     }

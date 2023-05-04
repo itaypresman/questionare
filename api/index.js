@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const AppRouter = require('./app.routes');
 const Config = require('@questionare-be/config');
 const Db = require('@questionare-be/db');
+const ErrorMiddleware = require('./middlewares/errorMiddleware/error.middleware');
 
 
 const app = express();
@@ -14,6 +15,7 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/', AppRouter);
 app.get('/', (req, res) => res.send('Hello World'));
+app.use(ErrorMiddleware);
 
 
 (async () => {

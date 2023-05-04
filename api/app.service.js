@@ -1,4 +1,4 @@
-const {Question, Option} = require('@questionare-be/db/models');
+const {Question, Option, Answer} = require('@questionare-be/db/models');
 
 
 const questionList = () => {
@@ -18,7 +18,13 @@ const questionList = () => {
     });
 };
 
+const saveAnswers = (user_id, answers) => {
+    const values = answers.map(answer => ({ user_id, question_id: answer.questionId, option_id: answer.optionId, text: answer.text}));
+    return Answer.bulkCreate(values);
+};
+
 
 module.exports = {
     questionList,
+    saveAnswers,
 };
