@@ -8,9 +8,13 @@ const questionList = () => {
                 model: Option,
                 as: 'options',
                 attributes: { exclude: ['createdAt', 'updatedAt', 'question_id'] },
+                order: [['createdAt', 'ASC']]
             }
         ],
-        attributes: { exclude: ['createdAt', 'updatedAt'] }
+        attributes: { exclude: ['createdAt', 'updatedAt'] },
+        order: [
+            [{ model: Option, as: 'options' }, 'id', 'ASC'],
+        ],
     });
 };
 
