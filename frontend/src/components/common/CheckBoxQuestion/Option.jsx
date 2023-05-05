@@ -1,4 +1,5 @@
 import React from 'react';
+import {observer} from "mobx-react";
 
 
 function Option({label}) {
@@ -11,4 +12,4 @@ function Option({label}) {
 }
 
 
-export default Option;
+export default observer(Option);

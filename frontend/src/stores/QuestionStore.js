@@ -18,6 +18,18 @@ class QuestionStore {
             this.questions = response.data?.data;
         }).catch(() => {});
     };
+
+    isNeedExplanation = (questionId, optionId) => {
+        const question = this.questions.find(question => question.id === questionId);
+
+        if (!question) {
+            return false;
+        }
+
+        const option = question.options.find(opt => opt.id === optionId);
+
+        return !!option?.need_explanation;
+    }
 }
 
 

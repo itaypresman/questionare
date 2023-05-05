@@ -1,8 +1,8 @@
 import React from 'react';
 import './Button.css';
 
-function Button({label}) {
-    return <button>{label}</button>;
+function Button({label, onClick}) {
+    return <button onClick={onClick}>{label}</button>;
 }
 
 export default Button;
