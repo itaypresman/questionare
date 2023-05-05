@@ -31,6 +31,7 @@ const base_conf = {
             {
                 test: /\.css$/,
                 use: [
+                    { loader: 'style-loader' },
                     { loader: 'css-loader' },
                 ]
             },
@@ -40,7 +41,7 @@ const base_conf = {
     resolve: {
         extensions: ['.js', '.jsx'],
         alias: {
-            '@lib': path.resolve(__dirname, '..', 'lib'),
+            '@utils': path.resolve(__dirname, '..', 'src', 'utils'),
             '@components': path.resolve(__dirname, '..', 'src', 'components'),
             '@stores': path.resolve(__dirname, '..', 'src', 'stores'),
             '@public': path.resolve(__dirname, '..', 'public'),

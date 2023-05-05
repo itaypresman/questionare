@@ -8,6 +8,8 @@
   },
   "dependencies": {
     "axios": "^1.4.0",
+    "mobx": "^6.9.0",
+    "mobx-react": "^7.6.0",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
@@ -29,6 +31,7 @@
     "html-loader": "^4.2.0",
     "html-webpack-plugin": "^5.5.1",
     "path": "^0.12.7",
+    "style-loader": "^3.3.2",
     "webpack-cli": "^5.0.2",
     "webpack-dev-server": "^4.13.3",
     "webpack-merge": "^5.8.0"
