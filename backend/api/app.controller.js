@@ -1,9 +1,10 @@
 const AppService = require('./app.service');
+const {getQuestions} = require('@questionare-be/cache');
 
 
-const getQuestions = async (req, res, next) => {
+const questionList = async (req, res, next) => {
     try {
-        const questions = await AppService.questionList();
+        const questions = getQuestions();
         res.json({status: true, data: questions});
     } catch (e) {
         next(e);
@@ -22,6 +23,6 @@ const saveAnswers = async (req, res, next) => {
 
 
 module.exports = {
-    getQuestions,
+    questionList,
     saveAnswers,
 };

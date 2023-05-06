@@ -1,6 +1,6 @@
 import { action, observable, makeObservable } from 'mobx';
 import QuestionerApi from '@utils/questioner.api';
-import QuestionStore from "@stores/QuestionStore";
+import QuestionStore from '@stores/QuestionStore';
 
 
 class AnswerStore {
@@ -22,9 +22,9 @@ class AnswerStore {
 
     generateUserId = () => (Date.now().toString(36) + Math.random().toString(36).substr(2, 5)).toLowerCase();
 
-    setAnswer = (questionId, optionId, text = '') => {
+    setAnswer = (questionId, optionId, text = null) => {
         if (!this.answers[questionId]) {
-            this.answers[questionId] = { questionId, optionId, text: '' };
+            this.answers[questionId] = { questionId, optionId, text };
         }
 
         this.answers[questionId].optionId = optionId;

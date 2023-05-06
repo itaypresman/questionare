@@ -6,7 +6,7 @@ const validator = require('./middlewares/validator.middleware');
 
 const router = new Router();
 
-router.get('/questions', AppController.getQuestions);
+router.get('/questions', AppController.questionList);
 
 router.post('/answers/save',
     body('userId').isString(),

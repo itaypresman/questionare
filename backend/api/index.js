@@ -5,6 +5,7 @@ const AppRouter = require('./app.routes');
 const Config = require('@questionare-be/config');
 const Db = require('@questionare-be/db');
 const ErrorMiddleware = require('./middlewares/errorMiddleware/error.middleware');
+const {initCache} = require('@questionare-be/cache');
 
 
 const app = express();
@@ -20,6 +21,7 @@ app.use(ErrorMiddleware);
 
 (async () => {
     Db.connect();
+    await initCache();
 
     app.listen(Config.port, () => {
         console.log(`Application running on port: ${ Config.port }`);
