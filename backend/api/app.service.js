@@ -1,4 +1,4 @@
-const {Answer} = require('@questionare-be/db/models');
+const {Answer, Question, Option} = require('@questionare-be/db/models');
 
 
 const saveAnswers = (user_id, answers) => {
@@ -6,7 +6,26 @@ const saveAnswers = (user_id, answers) => {
     return Answer.bulkCreate(values);
 };
 
+const getAnswers = userId => {
+    return Question.findAll({
+        include: [
+            {
+                model: Answer,
+                as: 'answers',
+                required: false,
+                where: {
+                    user_id: userId
+                },
+                include: [
+                    { model: Option, required: false, as: 'option' }
+                ]
+            }
+        ]
+    });
+};
+
 
 module.exports = {
     saveAnswers,
+    getAnswers,
 };

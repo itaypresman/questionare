@@ -21,8 +21,20 @@ const saveAnswers = async (req, res, next) => {
     }
 };
 
+const getAnswers = async (req, res, next) => {
+    try {
+        const {userId} = req.params;
+        const answers = await AppService.getAnswers(userId);
+
+        res.send({status: true, data: answers});
+    } catch (e) {
+        next(e);
+    }
+};
+
 
 module.exports = {
     questionList,
     saveAnswers,
+    getAnswers,
 };

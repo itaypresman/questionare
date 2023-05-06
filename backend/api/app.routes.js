@@ -1,6 +1,6 @@
 const {Router} = require('express');
 const AppController = require('./app.controller');
-const { body } = require('express-validator');
+const { body, param } = require('express-validator');
 const validator = require('./middlewares/validator.middleware');
 
 
@@ -13,6 +13,12 @@ router.post('/answers/save',
     body('answers').isArray(),
     validator,
     AppController.saveAnswers
+);
+
+router.get('/answers/:userId',
+    param('userId').isString(),
+    validator,
+    AppController.getAnswers
 );
 
 

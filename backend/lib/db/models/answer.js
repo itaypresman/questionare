@@ -5,6 +5,7 @@ const {
 module.exports = (sequelize, DataTypes) => {
     class Answer extends Model {
         static associate(models) {
+            Answer.belongsTo(models.Option, { foreignKey: 'option_id', as: 'option' });
         }
     }
 

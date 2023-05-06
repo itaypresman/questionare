@@ -1,7 +1,7 @@
 import React from 'react';
 import './Button.css';
 
-function Button({label, onClick, isDisabled}) {
+function Button({label, onClick, isDisabled = false}) {
     return <button className={isDisabled ? '--disabled' : ''} onClick={onClick} disabled={isDisabled}>{label}</button>;
 }
 

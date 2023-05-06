@@ -4,25 +4,33 @@ import QuestionStore from '@stores/QuestionStore';
 
 
 class AnswerStore {
-      answers = [];
+    userId = null;
+    answers = [];
+    userAnswers = [];
     isValidRequiredQuestions = false;
 
     constructor() {
         makeObservable(this, {
             answers: observable,
+            userAnswers: observable,
             isValidRequiredQuestions: observable,
+            userId: observable,
 
             setAnswer: action,
             addCheckBoxAnswer: action,
             deleteCheckBoxAnswer: action,
             saveAnswers: action,
             setIsValidRequiredQuestions: action,
+            loadUserAnswers: action,
+            setUserAnswers: action,
         });
     };
 
     generateUserId = () => (Date.now().toString(36) + Math.random().toString(36).substr(2, 5)).toLowerCase();
 
-    setAnswer = (questionId, optionId, text = null) => {
+    setAnswer = (questionId, optionId, text = '') => {
+        console.log(this.answers[questionId]?.text)
+
         if (!this.answers[questionId]) {
             this.answers[questionId] = { questionId, optionId, text };
         }
@@ -43,17 +51,21 @@ class AnswerStore {
     }
 
     saveAnswers = () => {
+        const userId = this.generateUserId();
         const data = {
-            userId: this.generateUserId(),
+            userId,
             answers: Object.values(this.answers).filter(item => item),
         };
 
-        QuestionerApi.post('/answers/save', data);
+        QuestionerApi.post('/answers/save', data).then(res => {
+            if (res.data.status) {
+                this.userId = userId;
+                this.answers = [];
+            }
+        });
     };
 
     getOptionId = questionId => this.answers[questionId]?.optionId || null;
-
-    getAdditionalText = (questionId, optionId) => this.answers[questionId]?.[optionId]?.text || '';
 
     setIsValidRequiredQuestions = () => {
         const requiredIds = QuestionStore.requiredQuestionsIds();
@@ -66,6 +78,16 @@ class AnswerStore {
         }
 
         this.isValidRequiredQuestions = true;
+    };
+
+    loadUserAnswers = userId => {
+        QuestionerApi.get(`/answers/${userId}`).then(response => {
+            this.setUserAnswers(response.data?.data);
+        }).catch(() => {});
+    };
+
+    setUserAnswers = userAnswers => {
+        this.userAnswers = userAnswers;
     }
 }
 

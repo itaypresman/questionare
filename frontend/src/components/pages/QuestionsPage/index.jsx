@@ -7,12 +7,21 @@ import RadioQuestion from '@components/common/RadioQuestion';
 import CheckBoxQuestion from '@components/common/CheckBoxQuestion';
 import Button from '@components/common/Button';
 import AnswerStore from "@stores/AnswerStore";
+import {useNavigate} from "react-router";
 
 
-function Index() {
+function QuestionsPage() {
+    const navigate = useNavigate();
+
     useEffect(() => {
         QuestionsStore.loadQuestions();
     }, []);
+
+    useEffect(() => {
+        if (AnswerStore.userId) {
+            navigate(`/${AnswerStore.userId}`);
+        }
+    }, [AnswerStore.userId]);
 
     const questions = QuestionsStore.questions.map((question, i) => {
         switch (question.type) {
@@ -63,4 +72,4 @@ function Index() {
     );
 }
 
-export default observer(Index);
+export default observer(QuestionsPage);

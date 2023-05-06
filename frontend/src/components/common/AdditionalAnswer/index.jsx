@@ -16,7 +16,7 @@ function AdditionalAnswer({questionId}) {
     return (
         <div className={`text-input-container ${hiddenClass}`}>
             <label>Why:</label>
-            <input type={'text'} onChange={onAnswerChange} value={AnswerStore.getAdditionalText()}/>
+            <input type={'text'} onChange={onAnswerChange} value={AnswerStore.answers[questionId]?.text || ''}/>
         </div>
     );
 }
