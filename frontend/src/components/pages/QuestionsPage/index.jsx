@@ -57,7 +57,7 @@ function Index() {
 
                 {questions}
 
-                <Button label={'Send'} onClick={onSendClick} />
+                <Button label={'Send'} onClick={onSendClick} isDisabled={!AnswerStore.isValidRequiredQuestions}/>
             </div>
         </>
     );

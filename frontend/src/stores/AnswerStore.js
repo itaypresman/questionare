@@ -1,18 +1,22 @@
 import { action, observable, makeObservable } from 'mobx';
 import QuestionerApi from '@utils/questioner.api';
+import QuestionStore from "@stores/QuestionStore";
 
 
 class AnswerStore {
-    answers = [];
+      answers = [];
+    isValidRequiredQuestions = false;
 
     constructor() {
         makeObservable(this, {
             answers: observable,
+            isValidRequiredQuestions: observable,
 
             setAnswer: action,
             addCheckBoxAnswer: action,
             deleteCheckBoxAnswer: action,
             saveAnswers: action,
+            setIsValidRequiredQuestions: action,
         });
     };
 
@@ -25,15 +29,17 @@ class AnswerStore {
 
         this.answers[questionId].optionId = optionId;
         this.answers[questionId].text = text;
+        this.setIsValidRequiredQuestions();
     }
 
     addCheckBoxAnswer = (questionId, optionId) => {
         this.answers[`${questionId}_${optionId}`] = { questionId, optionId, text: null };
-        console.log(this.answers)
+        this.setIsValidRequiredQuestions();
     }
 
     deleteCheckBoxAnswer = (questionId, optionId) => {
         delete this.answers[`${questionId}_${optionId}`];
+        this.setIsValidRequiredQuestions();
     }
 
     saveAnswers = () => {
@@ -48,6 +54,19 @@ class AnswerStore {
     getOptionId = questionId => this.answers[questionId]?.optionId || null;
 
     getAdditionalText = (questionId, optionId) => this.answers[questionId]?.[optionId]?.text || '';
+
+    setIsValidRequiredQuestions = () => {
+        const requiredIds = QuestionStore.requiredQuestionsIds();
+
+        for (const questionId of requiredIds) {
+            if (!(Object.values(this.answers).find(answer => answer?.questionId === questionId))) {
+                this.isValidRequiredQuestions = false;
+                return;
+            }
+        }
+
+        this.isValidRequiredQuestions = true;
+    }
 }
 
 

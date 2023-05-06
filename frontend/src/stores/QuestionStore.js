@@ -35,6 +35,8 @@ class QuestionStore {
 
         return !!option?.need_explanation;
     }
+
+    requiredQuestionsIds = () => this.questions.filter(question => question.is_required).map(question => question.id);
 }
 
 
