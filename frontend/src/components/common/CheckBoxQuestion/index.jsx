@@ -7,7 +7,7 @@ import {observer} from "mobx-react";
 
 
 function CheckBoxQuestion({question, num, options, isRequired, questionId}) {
-    const answers = options.map(option => <Option key={option.id} label={option.text}/>);
+    const answers = options.map(option => <Option key={option.id} label={option.text} optionId={option.id} questionId={questionId}/>);
 
     return (
         <>

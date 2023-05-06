@@ -10,6 +10,8 @@ class AnswerStore {
             answers: observable,
 
             setAnswer: action,
+            addCheckBoxAnswer: action,
+            deleteCheckBoxAnswer: action,
             saveAnswers: action,
         });
     };
@@ -18,11 +20,20 @@ class AnswerStore {
 
     setAnswer = (questionId, optionId, text = '') => {
         if (!this.answers[questionId]) {
-            this.answers[questionId] = { questionId, optionId, text: '' }
+            this.answers[questionId] = { questionId, optionId, text: '' };
         }
 
         this.answers[questionId].optionId = optionId;
         this.answers[questionId].text = text;
+    }
+
+    addCheckBoxAnswer = (questionId, optionId) => {
+        this.answers[`${questionId}_${optionId}`] = { questionId, optionId, text: null };
+        console.log(this.answers)
+    }
+
+    deleteCheckBoxAnswer = (questionId, optionId) => {
+        delete this.answers[`${questionId}_${optionId}`];
     }
 
     saveAnswers = () => {

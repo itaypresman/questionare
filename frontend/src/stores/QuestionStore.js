@@ -10,12 +10,17 @@ class QuestionStore {
             questions: observable,
 
             loadQuestions: action,
+            setQuestions: action,
         });
+    };
+
+    setQuestions = questions => {
+        this.questions = questions;
     };
 
     loadQuestions = () => {
         QuestionerApi.get('/questions').then(response => {
-            this.questions = response.data?.data;
+            this.setQuestions(response.data?.data);
         }).catch(() => {});
     };
 
